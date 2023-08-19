@@ -26,7 +26,9 @@ const Game = function (name, host) {
   this.lastMoveParsed = { move: '', player: '' };
   this.roundInProgress = false;
   this.disconnectedPlayers = [];
-  this.autoBuyIns = true;
+  this.ranked = true;
+  this.rank = this.players.length + 1
+  this.ranking = []
   this.debug = false;
   this.smallBlind = 1;
   this.bigBlind = 2;
@@ -95,17 +97,34 @@ const Game = function (name, host) {
           ? this.roundData.dealer + 1
           : 0;
     }
+    
+    
+
+    //ranking
+    if (this.ranked) {
+      //final ranking
+      if (this.players.length == 1){
+        console.log("final ranking:"+this.ranking)
+      }
+      //check loser
+      for (player of this.players) {
+        if (player.getMoney() <= 0) {
+          //set ranking
+          this.rank -= 1;
+          player.rank = this.rank;
+          //gameover
+          this.ranking.push(this.players.splice(this.players.indexOf(player), 1))
+          console.log("current players:"+this.players)
+          console.log("current length:"+this.players.length)
+          console.log("loser:"+player)
+        }
+      }
+      
+    }
+
     // Init blind and first player
     this.assignBlind();
 
-    if (this.autoBuyIns) {
-      for (player of this.players) {
-        if (player.getMoney() == 0) {
-          player.money = 100;
-          player.buyIns = player.buyIns + 1;
-        }
-      }
-    }
 
     // handle big and small blind initial forced bets
 
@@ -176,7 +195,7 @@ const Game = function (name, host) {
         myStatus: this.players[pn].getStatus(),
         myBlind: this.players[pn].getBlind(),
         roundInProgress: this.roundInProgress,
-        buyIns: this.players[pn].buyIns,
+        rank: this.players[pn].rank,
       });
     }
   };
@@ -607,7 +626,7 @@ const Game = function (name, host) {
         hand: this.players[i].getStatus(),
         folded: this.players[i].getStatus() == 'Fold',
         money: this.players[i].getMoney(),
-        buyIns: this.players[i].buyIns,
+        rank: this.players[i].rank,
         gain: winData ? winData.gain : null,
       });
     }

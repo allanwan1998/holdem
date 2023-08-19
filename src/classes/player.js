@@ -4,7 +4,7 @@ const Player = function (playerName, socket, debug) {
   this.socket = socket;
   this.currentCard = null;
   this.money = 100;
-  this.buyIns = 0;
+  this.rank = 0;
   this.status = '';
   this.blindValue = '';
   this.dealer = false;
@@ -28,8 +28,8 @@ const Player = function (playerName, socket, debug) {
   this.getUsername = () => {
     return this.username;
   };
-  this.getBuyIns = () => {
-    return this.buyIns;
+  this.getRank = () => {
+    return this.rank;
   };
   this.getMoney = () => {
     return this.money;

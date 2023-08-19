@@ -154,7 +154,7 @@ socket.on('rerender', function (data) {
         money: p.money,
         blind: p.blind,
         bets: data.bets,
-        buyIns: p.buyIns,
+        rank: p.rank,
         isChecked: p.isChecked,
       });
     })
@@ -164,7 +164,7 @@ socket.on('rerender', function (data) {
     text: data.myStatus,
     blind: data.myBlind,
     bets: data.bets,
-    buyIns: data.buyIns,
+    rank: data.rank,
   });
   if (!data.roundInProgress) {
     $('#usernameFold').hide();
@@ -216,7 +216,7 @@ socket.on('reveal', function (data) {
         folded: p.folded,
         money: p.money,
         endHand: p.hand,
-        buyIns: p.buyIns,
+        rank: p.rank,
       });
     })
   );
@@ -384,9 +384,9 @@ function renderOpponent(name, data) {
       if (arr[pn].player == name) bet = arr[pn].bet;
     }
   }
-  var buyInsText =
-    data.buyIns > 0 ? (data.buyIns > 1 ? 'buy-ins' : 'buy-in') : '';
-  if (data.buyIns > 0) {
+  var rankText =
+    data.rank > 0 ? (data.rank > 1 ? 'rank:' : 'buy-in') : '';
+  if (data.rank > 0) {
     if (data.text == 'Fold') {
       return (
         '<div class="col s12 m2 opponentCard"><div class="card grey"><div class="card-content white-text"><span class="card-title">' +
@@ -398,9 +398,9 @@ function renderOpponent(name, data) {
         '</p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
         data.money +
         ' (' +
-        data.buyIns +
+        rankText +
         ' ' +
-        buyInsText +
+        data.rank +
         ')' +
         '</div></div></div>'
       );
@@ -417,9 +417,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action yellow lighten-1 black-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -434,9 +434,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action yellow lighten-1 black-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -453,9 +453,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action yellow lighten-1 black-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -472,9 +472,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -489,9 +489,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -508,9 +508,9 @@ function renderOpponent(name, data) {
             '</p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
             data.money +
             ' (' +
-            data.buyIns +
+            rankText +
             ' ' +
-            buyInsText +
+            data.rank +
             ')' +
             '</div></div></div>'
           );
@@ -518,7 +518,7 @@ function renderOpponent(name, data) {
       }
     }
   }
-  // buy-ins rendering
+  // ranking rendering
   else {
     if (data.text == 'Fold') {
       return (
@@ -626,9 +626,9 @@ function renderOpponentCards(name, data) {
       if (arr[pn].player == name) bet = arr[pn].bet;
     }
   }
-  var buyInsText2 =
-    data.buyIns > 0 ? (data.buyIns > 1 ? 'buy-ins' : 'buy-in') : '';
-  if (data.buyIns > 0) {
+  var rankText2 =
+    data.rank > 0 ? (data.rank > 1 ? 'rank:' : 'buy-in') : '';
+  if (data.rank > 0) {
     if (data.folded)
       return (
         '<div class="col s12 m2 opponentCard"><div class="card grey" ><div class="card-content white-text"><span class="card-title">' +
@@ -638,9 +638,9 @@ function renderOpponentCards(name, data) {
         '</span><p><div class="center-align"><div class="blankCard" id="opponent-card" /><div class="blankCard" id="opponent-card" /></div><br /><br /><br /><br /><br /><br /></p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
         data.money +
         ' (' +
-        data.buyIns +
+        rankText2 +
         ' ' +
-        buyInsText2 +
+        data.rank +
         ')' +
         '</div></div></div>'
       );
@@ -658,9 +658,9 @@ function renderOpponentCards(name, data) {
         '</p></div><div class="card-action green darken-3 white-text center-align" style="font-size: 20px;">$' +
         data.money +
         ' (' +
-        data.buyIns +
+        rankText2 +
         ' ' +
-        buyInsText2 +
+        data.rank +
         ')' +
         '</div></div></div>'
       );
