@@ -181,6 +181,7 @@ socket.on('gameBegin', function (data) {
   $('#hostModal').closeModal();
   if (data == undefined) {
     alert('Error - invalid game.');
+    console.log(data)
   } else {
     $('#gameDiv').show();
   }

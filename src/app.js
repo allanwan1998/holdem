@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3300;
 
 app.use('/', express.static(__dirname + '/client'));
 
